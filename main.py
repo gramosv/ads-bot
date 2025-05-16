@@ -27,9 +27,9 @@ async def mostrar_stickers(update: Update, context: ContextTypes.DEFAULT_TYPE):
     #    await update.message.reply_text("No tienes permiso.")
     #    return
 
-    archivos = [f for f in os.listdir(CARPETA_STICKERS) if f.endswith('.jpg')]
+    archivos = [f for f in os.listdir(CARPETA_STICKERS) if f.endswith('.webp')]
     for archivo in archivos:
-        nombre = archivo.replace('.jpg', '')
+        nombre = archivo.replace('.webp', '')
         ruta = os.path.join(CARPETA_STICKERS, archivo)
         botones = [[InlineKeyboardButton("Enviar este", callback_data=nombre)]]
         markup = InlineKeyboardMarkup(botones)
