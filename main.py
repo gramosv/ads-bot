@@ -7,16 +7,16 @@ import asyncio
 
 # --- Configuración ---
 TOKEN = '8064823801:AAH9bfrV68EtsLY39sHVZbVkhoTrwkjAJM4'
-GRUPO_AUTORIZADO = 5098085  # Sustituye por el chat_id de tu grupo
+#GRUPO_AUTORIZADO = 5098085  # Sustituye por el chat_id de tu grupo
 #USUARIOS_AUTORIZADOS = [123456789]  # Sustituye con los IDs permitidos
 CARPETA_STICKERS = 'stickers'
 TIEMPO_AUTODESTRUCCION = 15  # segundos
 
 # --- Comando /sticker: mostrar galería ---
 async def mostrar_stickers(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if update.effective_chat.id != GRUPO_AUTORIZADO:
-        await update.message.reply_text("Este bot solo funciona en el grupo autorizado.")
-        return
+    #if update.effective_chat.id != GRUPO_AUTORIZADO:
+    #    await update.message.reply_text("Este bot solo funciona en el grupo autorizado.")
+    #    return
 
     #if update.effective_user.id not in USUARIOS_AUTORIZADOS:
     #    await update.message.reply_text("No tienes permiso.")
@@ -37,9 +37,9 @@ async def enviar_sticker(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    if query.message.chat.id != GRUPO_AUTORIZADO:
-        await query.edit_message_text("Este bot solo funciona en el grupo autorizado.")
-        return
+    #if query.message.chat.id != GRUPO_AUTORIZADO:
+    #    await query.edit_message_text("Este bot solo funciona en el grupo autorizado.")
+    #    return
 
     #if query.from_user.id not in USUARIOS_AUTORIZADOS:
     #    await query.edit_message_text("No tienes permiso.")
