@@ -6,7 +6,7 @@ import os
 import asyncio
 
 # --- Configuración ---
-TOKEN = '8064823801:AAH9bfrV68EtsLY39sHVZbVkhoTrwkjAJM4'
+TOKEN = '8064823801:AAHn-G4QUpVQGQvSQO4Rb3R7LzmgEErqWfg'
 #GRUPO_AUTORIZADO = 5098085  # Sustituye por el chat_id de tu grupo
 #USUARIOS_AUTORIZADOS = [123456789]  # Sustituye con los IDs permitidos
 CARPETA_STICKERS = 'stickers'
