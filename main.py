@@ -8,6 +8,10 @@ import asyncio
 # --- Configuración ---
 #TOKEN = ''
 TOKEN = os.getenv("BOT_TOKEN")
+if TOKEN is None:
+    print("❌ No se encontró la variable BOT_TOKEN")
+else:
+    print(f"✅ Token cargado: {TOKEN}")
 #GRUPO_AUTORIZADO = 5098085  # Sustituye por el chat_id de tu grupo
 #USUARIOS_AUTORIZADOS = [123456789]  # Sustituye con los IDs permitidos
 CARPETA_STICKERS = 'stickers'
