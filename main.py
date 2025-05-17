@@ -87,9 +87,9 @@ async def obtener_clima():
             sensacion = hoy["hourly"][7]["FeelsLikeC"]
 
             return (
-                f"🌤 Tiempo en Campus Repsol a las 7:00:\n"
+                f"Tiempo en Campus Repsol a las 7:00:\n"
                 f"{descripcion}, {temp}°C (sensación: {sensacion}°C)\n"
-                f"🌡 Máxima: {max_temp}°C | Mínima: {min_temp}°C"
+                f"Máxima: {max_temp}°C | Mínima: {min_temp}°C"
             )
 
 async def enviar_clima_diario(context: ContextTypes.DEFAULT_TYPE):
@@ -112,5 +112,5 @@ app.run_polling()
 
 # Scheduler para ejecutar la tarea diaria
 scheduler = AsyncIOScheduler()
-scheduler.add_job(enviar_clima_diario, trigger='cron', hour=7, minute=0, args=[app.bot])
+scheduler.add_job(enviar_clima_diario, trigger='cron', hour=10, minute=35, args=[app.bot])
 scheduler.start()
