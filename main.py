@@ -111,7 +111,7 @@ async def main():
 
     # Crear y arrancar el scheduler
     scheduler = AsyncIOScheduler()
-    scheduler.add_job(enviar_clima_diario, trigger='cron', hour=7, minute=0, args=[app.bot])
+    scheduler.add_job(enviar_clima_diario, trigger='cron', hour=21, minute=20, args=[app.bot])
     scheduler.start()
 
     print("Bot en funcionamiento con clima programado a las 7:00")
