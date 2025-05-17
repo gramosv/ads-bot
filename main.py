@@ -101,13 +101,16 @@ async def comando_tiempo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     mensaje = await obtener_clima()
     await update.message.reply_text(mensaje)
 
+
+
+# --- Lanzar el bot ---
+app = ApplicationBuilder().token(TOKEN).build()
+
 # Scheduler para ejecutar la tarea diaria
 scheduler = AsyncIOScheduler()
 scheduler.add_job(enviar_clima_diario, trigger='cron', hour=11, minute=0, args=[app.bot])
 scheduler.start()
 
-# --- Lanzar el bot ---
-app = ApplicationBuilder().token(TOKEN).build()
 app.add_handler(CommandHandler("sticker", mostrar_stickers))
 app.add_handler(CallbackQueryHandler(enviar_sticker))
 app.add_handler(CommandHandler("tiempo", comando_tiempo))
