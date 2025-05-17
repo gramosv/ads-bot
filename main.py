@@ -118,4 +118,13 @@ async def main():
 
 # Ejecutar el bot dentro del bucle principal
 if __name__ == "__main__":
-    asyncio.run(main())
+    import sys
+    if sys.platform.startswith("win") or os.getenv("RUN_LOCAL"):
+        asyncio.run(main())
+    else:
+        # Entornos como Render ya tienen loop activo
+        import nest_asyncio
+        nest_asyncio.apply()
+        loop = asyncio.get_event_loop()
+        loop.create_task(main())
+        loop.run_forever()
