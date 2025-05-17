@@ -101,19 +101,21 @@ async def comando_tiempo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     mensaje = await obtener_clima()
     await update.message.reply_text(mensaje)
 
+async def main():
+    app = ApplicationBuilder().token(TOKEN).build()
 
+    # Añadir handlers
+    app.add_handler(CommandHandler("sticker", mostrar_stickers))
+    app.add_handler(CallbackQueryHandler(enviar_sticker))
 
-# --- Lanzar el bot ---
-app = ApplicationBuilder().token(TOKEN).build()
+    # Crear y arrancar el scheduler
+    scheduler = AsyncIOScheduler()
+    scheduler.add_job(enviar_clima_diario, trigger='cron', hour=11, minute=5, args=[app.bot])
+    scheduler.start()
 
-# Scheduler para ejecutar la tarea diaria
-scheduler = AsyncIOScheduler()
-scheduler.add_job(enviar_clima_diario, trigger='cron', hour=11, minute=0, args=[app.bot])
-scheduler.start()
+    print("Bot en funcionamiento con clima programado a las 7:00")
+    await app.run_polling()
 
-app.add_handler(CommandHandler("sticker", mostrar_stickers))
-app.add_handler(CallbackQueryHandler(enviar_sticker))
-app.add_handler(CommandHandler("tiempo", comando_tiempo))
-app.run_polling()
-
-
+# Ejecutar el bot dentro del bucle principal
+if __name__ == "__main__":
+    asyncio.run(main())
