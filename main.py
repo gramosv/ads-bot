@@ -11,7 +11,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 # --- Configuración ---
 TOKEN = os.getenv("BOT_TOKEN")
 
-GRUPO_AUTORIZADO = 5098085  # Sustituye por el chat_id de tu grupo
+GRUPO_AUTORIZADO = -4066203778  # Sustituye por el chat_id de tu grupo
 #USUARIOS_AUTORIZADOS = [123456789]  # Sustituye con los IDs permitidos
 CARPETA_STICKERS = 'stickers'
 TIEMPO_AUTODESTRUCCION = 3600  # segundos
@@ -19,9 +19,9 @@ CIUDAD = "Madrid"
 
 # --- Comando /sticker: mostrar galería ---
 async def mostrar_stickers(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    #if update.effective_chat.id != GRUPO_AUTORIZADO:
-    #    await update.message.reply_text("Este bot solo funciona en el grupo autorizado.")
-    #    return
+    if update.effective_chat.id != GRUPO_AUTORIZADO:
+        await update.message.reply_text("Este bot solo funciona en el grupo autorizado.")
+        return
 
     #if update.effective_user.id not in USUARIOS_AUTORIZADOS:
     #    await update.message.reply_text("No tienes permiso.")
@@ -42,9 +42,9 @@ async def enviar_sticker(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    #if query.message.chat.id != GRUPO_AUTORIZADO:
-    #    await query.edit_message_text("Este bot solo funciona en el grupo autorizado.")
-    #    return
+    if query.message.chat.id != GRUPO_AUTORIZADO:
+        await query.edit_message_text("Este bot solo funciona en el grupo autorizado.")
+        return
 
     #if query.from_user.id not in USUARIOS_AUTORIZADOS:
     #    await query.edit_message_text("No tienes permiso.")
@@ -101,7 +101,10 @@ async def comando_tiempo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     mensaje = await obtener_clima()
     await update.message.reply_text(mensaje)
 
-
+# Scheduler para ejecutar la tarea diaria
+scheduler = AsyncIOScheduler()
+scheduler.add_job(enviar_clima_diario, trigger='cron', hour=11, minute=0, args=[app.bot])
+scheduler.start()
 
 # --- Lanzar el bot ---
 app = ApplicationBuilder().token(TOKEN).build()
@@ -110,7 +113,4 @@ app.add_handler(CallbackQueryHandler(enviar_sticker))
 app.add_handler(CommandHandler("tiempo", comando_tiempo))
 app.run_polling()
 
-# Scheduler para ejecutar la tarea diaria
-scheduler = AsyncIOScheduler()
-scheduler.add_job(enviar_clima_diario, trigger='cron', hour=10, minute=35, args=[app.bot])
-scheduler.start()
+
